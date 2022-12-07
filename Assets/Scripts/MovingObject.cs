@@ -20,6 +20,24 @@ public abstract class MovingObject : MonoBehaviour
         inverseMoveTime = 1f / moveTime;
     }
 
+    protected bool Movement(int xDir, int yDir)
+    {
+        RaycastHit2D hit;
+        Vector2 start = transform.position;
+        Vector2 end = start + new Vector2(xDir, yDir);
+
+        boxCollider.enabled = false;
+        hit = Physics2D.Linecast(start, end, blockingLayer);
+        boxCollider.enabled = true;
+
+        if (hit.transform == null || hit.transform.gameObject.tag == "Player")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
         Vector2 start = transform.position;

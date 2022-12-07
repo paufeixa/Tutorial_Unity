@@ -39,14 +39,27 @@ public class Enemy : MovingObject
         int xDir = 0;
         int yDir = 0;
 
-        if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
-
+        if (Mathf.Abs(target.position.y - transform.position.y) > float.Epsilon)
+        {
+            xDir = 0;
             yDir = target.position.y > transform.position.y ? 1 : -1;
+            if (Movement(xDir, yDir))
+            {
+                AttemptMove<Player>(xDir, yDir);
+                return;
+            }
+        }
 
-        else
+        if (Mathf.Abs(target.position.x - transform.position.x) > float.Epsilon)
+        {
             xDir = target.position.x > transform.position.x ? 1 : -1;
-
-        AttemptMove<Player>(xDir, yDir);
+            yDir = 0;
+            if (Movement(xDir, yDir))
+            {
+                AttemptMove<Player>(xDir, yDir);
+                return;
+            }
+        }
     }
 
     protected override void OnCantMove<T>(T component)
