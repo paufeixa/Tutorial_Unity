@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Unity.Editor;
+//using Unity.Editor;
 
 public class Player : MovingObject
 {
